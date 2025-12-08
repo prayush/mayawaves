@@ -391,7 +391,7 @@ class Catalog:
             print("Only the following parameters can be plotted")
             print(*Parameter, sep="\n")
 
-    def download_waveforms(self, waveforms: list, save_wf_path, safety: bool = True, lvcnr_format: bool = False):
+    def download_waveforms(self, waveforms: list, save_wf_path, safety: bool = True, lvcnr_format: bool = False, overwrite: bool = False):
         """Downloads waveforms from the MAYA Catalog given a list of waveform ids. By default, they are downloaded in the
         MAYA format, but they can also be downloaded in the lvc-nr format (https://arxiv.org/abs/1703.01076).
 
@@ -444,6 +444,14 @@ class Catalog:
 
         for i in range(len(waveforms)):
             print(f"----------------------------------------------------------")
+            filename = f"{waveforms[i]}.h5"
+            save_file_path = os.path.join(save_wf_path, filename)
+
+            # Check if file already exists
+            if os.path.exists(save_file_path) and not overwrite:
+                print(f"Waveform {waveforms[i]}.h5 already exists at {save_file_path}. Skipping download.")
+                continue
+
             print(f"Downloading waveform {waveforms[i]}. This waveform has the following parameters")
             self._print_parameters(waveforms[i])
             url = base_website + f"/{waveforms[i]}.h5"
