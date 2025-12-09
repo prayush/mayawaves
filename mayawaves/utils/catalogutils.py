@@ -402,6 +402,7 @@ class Catalog:
                 Defaults to True.
             lvcnr_format (:obj:`bool`, optional): download the lvc-nr format instead of the MAYA format. Defaults to
                 False.
+            overwrite (:obj:`bool`, optional): overwrite (:obj:`bool`, optional): download only if local copy does not exist. Defaults to False.
 
         """
 
